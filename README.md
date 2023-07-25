@@ -9,11 +9,6 @@
     - [Project Configuration](#project-configuration)
 ​
 2. [Running the Project](#running-the-project)
-    - [Dev](#dev)
-​
-3. [Development](#development)
-​
-4. [Components](#components)
 ​
 5. [Technologies](#technologies)
 ​
@@ -56,14 +51,11 @@ $ npm install
 ```
 ​
 ## Running the Project
-We are using different environment files for sandbox, test and master branches with different infrastructure and other configurations. To use a particular environment file, its path must be specified under dotenv config in main.ts file as follows:
-```
-dotenv.config({path: '.env'});
-```
-By default, .env file is used.
-After running the project, you can open localhost on port 4001 to check if the app is running or not.
-### Dev
-Environmental File Name: dev.env
 ```bash
-$ nodemon start
+$ npm start
 ```
+## Technologies
+1. Node.js [(Documentation)](https://nodejs.org/en/docs/ "Documentation | Node.js")
+2. Express [(Documentation)](https://expressjs.com/en/5x/api.html "Documentation | Express")
+2. Mysql [(Documentation)](https://dev.mysql.com/doc/ "Mysql")
+3. Mocha [(Documentation)](https://mochajs.org// "Mocha")
