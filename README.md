@@ -10,7 +10,7 @@
 ​
 2. [Running the Project](#running-the-project)
 
-3. [Designs](#software-model)
+3. [Designs](#designs)
 ​
 4. [Technologies](#technologies)
 ​
@@ -62,7 +62,7 @@ $ nodemon start
 $ npm start
 ```
 
-## SOFTWARE MODEL
+## Designs
 1. HIGH LEVEL DESIGN [(Click here)](https://drive.google.com/file/d/174ohBoIdPGYe8vEZF9WTp9cs0hrh8KFr/view?usp=sharing)
 2. LOW LEVEL DESIGN [(Click here)](https://drive.google.com/file/d/1hNbZEsHcyIA31gN6YQke2S0tfSq1NJFO/view?usp=sharing)
 ## Technologies
