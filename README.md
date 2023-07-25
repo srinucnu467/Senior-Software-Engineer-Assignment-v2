@@ -9,8 +9,10 @@
     - [Project Configuration](#project-configuration)
 ​
 2. [Running the Project](#running-the-project)
+
+3. [Designs](#software-model)
 ​
-5. [Technologies](#technologies)
+4. [Technologies](#technologies)
 ​
 ## Setup
 ### Git Configuration
@@ -59,6 +61,10 @@ $ nodemon start
 ```bash
 $ npm start
 ```
+
+## SOFTWARE MODEL
+1. HIGH LEVEL DESIGN [(Click here)](https://drive.google.com/file/d/174ohBoIdPGYe8vEZF9WTp9cs0hrh8KFr/view?usp=sharing)
+2. LOW LEVEL DESIGN [(Click here)](https://drive.google.com/file/d/1hNbZEsHcyIA31gN6YQke2S0tfSq1NJFO/view?usp=sharing)
 ## Technologies
 1. Node.js [(Documentation)](https://nodejs.org/en/docs/ "Documentation | Node.js")
 2. Express [(Documentation)](https://expressjs.com/en/5x/api.html "Documentation | Express")
