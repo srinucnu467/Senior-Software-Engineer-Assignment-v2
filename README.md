@@ -50,6 +50,11 @@ To install required packages,
 $ npm install
 ```
 ​
+## Running the Project in watch mode
+```bash
+$ nodemon start
+```
+
 ## Running the Project
 ```bash
 $ npm start
