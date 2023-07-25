@@ -1,0 +1,1173 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Senior Software Engineer Assignment v2",
+        "description": "API documentation"
+      },
+      "servers": [
+        {
+          "url": "http://localhost:8080/v1",
+          "description": "Development server"
+        }
+      ],
+      "tags": [
+        {
+          "name": "Authentication",
+          "description": "APIs for user authentication and token management"
+        },
+        {
+          "name": "Candidates",
+          "description": "APIs for managing candidates"
+        }
+      ],
+    "paths": {
+        "/register": {
+            "post": {
+            "tags": ["Authentication"],
+            "summary": "User Registration",
+            "description": "Register a new user with the provided details.",
+            "requestBody": {
+                "description": "User details for registration.",
+                "required": true,
+                "content": {
+                "application/json": {
+                    "schema": {
+                    "type": "object",
+                    "properties": {
+                        "first_name": {
+                        "type": "string"
+                        },
+                        "last_name": {
+                        "type": "string"
+                        },
+                        "email": {
+                        "type": "string",
+                        "format": "email"
+                        },
+                        "password": {
+                        "type": "string"
+                        }
+                    },
+                    "example": {
+                        "first_name": "srinu",
+                        "last_name": "korakana",
+                        "email": "srinu@example.com",
+                        "password": "srinucnu"
+                    }
+                    }
+                }
+                }
+            },
+            "responses": {
+                "200": {
+                "description": "User registration successful",
+                "content": {
+                    "application/json": {
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                        "id": {
+                            "type": "integer"
+                        },
+                        "first_name": {
+                            "type": "string"
+                        },
+                        "email": {
+                            "type": "string",
+                            "format": "email"
+                        }
+                        },
+                        "example": {
+                        "id": 1,
+                        "first_name": "srinu",
+                        "email": "srinu@example.com"
+                        }
+                    }
+                    }
+                }
+                },
+                "500": {
+                "description": "Internal Server Error",
+                "content": {
+                    "application/json": {
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                        "error": {
+                            "type": "string"
+                        }
+                        },
+                        "example": {
+                        "error": "Internal Server Error: Some error message"
+                        }
+                    }
+                    }
+                }
+                }
+            }
+            }
+        },
+        "/login": {
+            "post": {
+            "tags": ["Authentication"],
+            "summary": "User Login",
+            "description": "Authenticate a user with the provided credentials and generate an access token.",
+            "requestBody": {
+                "description": "User login credentials.",
+                "required": true,
+                "content": {
+                "application/json": {
+                    "schema": {
+                    "type": "object",
+                    "properties": {
+                        "email": {
+                        "type": "string",
+                        "format": "email"
+                        },
+                        "password": {
+                        "type": "string"
+                        }
+                    },
+                    "example": {
+                        "email": "srinu@example.com",
+                        "password": "password"
+                    }
+                    }
+                }
+                }
+            },
+            "responses": {
+                "200": {
+                "description": "User login successful",
+                "content": {
+                    "application/json": {
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                        "accessToken": {
+                            "type": "string"
+                        }
+                        },
+                        "example": {
+                        "accessToken": "YOUR_ACCESS_TOKEN"
+                        }
+                    }
+                    }
+                }
+                },
+                "401": {
+                "description": "Unauthorized",
+                "content": {
+                    "application/json": {
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                        "error": {
+                            "type": "string"
+                        }
+                        },
+                        "example": {
+                        "error": "Unauthorized: Invalid credentials"
+                        }
+                    }
+                    }
+                }
+                },
+                "500": {
+                "description": "Internal Server Error",
+                "content": {
+                    "application/json": {
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                        "error": {
+                            "type": "string"
+                        }
+                        },
+                        "example": {
+                        "error": "Internal Server Error: Some error message"
+                        }
+                    }
+                    }
+                }
+                }
+            }
+            }
+        },
+        "/logout": {
+            "post": {
+            "tags": ["Authentication"],
+            "summary": "User Logout",
+            "description": "Invalidate the refresh token to log out the user.",
+            "requestBody": {
+                "description": "Refresh token object.",
+                "required": true,
+                "content": {
+                "application/json": {
+                    "schema": {
+                    "type": "object",
+                    "properties": {
+                        "refreshToken": {
+                        "type": "string"
+                        }
+                    },
+                    "example": {
+                        "refreshToken": "YOUR_REFRESH_TOKEN"
+                    }
+                    }
+                }
+                }
+            },
+            "responses": {
+                "200": {
+                "description": "Refresh token invalidated successfully",
+                "content": {
+                    "application/json": {
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                        "message": {
+                            "type": "string"
+                        }
+                        },
+                        "example": {
+                        "message": "Refresh token invalidated successfully"
+                        }
+                    }
+                    }
+                }
+                },
+                "401": {
+                "description": "Unauthorized",
+                "content": {
+                    "application/json": {
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                        "error": {
+                            "type": "string"
+                        }
+                        },
+                        "example": {
+                        "error": "Unauthorized: Invalid or missing authentication token"
+                        }
+                    }
+                    }
+                }
+                },
+                "403": {
+                "description": "Forbidden",
+                "content": {
+                    "application/json": {
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                        "error": {
+                            "type": "string"
+                        }
+                        },
+                        "example": {
+                        "error": "Invalid or expired refresh token"
+                        }
+                    }
+                    }
+                }
+                }
+            },
+            "security": [
+                {
+                "BearerAuth": []
+                }
+            ]
+            }
+        },
+        "/token/refresh": {
+            "post": {
+            "tags": ["Authentication"],
+            "summary": "Refresh Access Token",
+            "description": "Generate a new access token using a valid refresh token.",
+            "requestBody": {
+                "description": "Refresh token object.",
+                "required": true,
+                "content": {
+                "application/json": {
+                    "schema": {
+                    "type": "object",
+                    "properties": {
+                        "refreshToken": {
+                        "type": "string"
+                        }
+                    },
+                    "example": {
+                        "refreshToken": "YOUR_REFRESH_TOKEN"
+                    }
+                    }
+                }
+                }
+            },
+            "responses": {
+                "200": {
+                "description": "New access token generated successfully",
+                "content": {
+                    "application/json": {
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                        "accessToken": {
+                            "type": "string"
+                        }
+                        },
+                        "example": {
+                        "accessToken": "YOUR_NEW_ACCESS_TOKEN"
+                        }
+                    }
+                    }
+                }
+                },
+                "401": {
+                "description": "Unauthorized",
+                "content": {
+                    "application/json": {
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                        "error": {
+                            "type": "string"
+                        }
+                        },
+                        "example": {
+                        "error": "Unauthorized: Invalid or missing authentication token"
+                        }
+                    }
+                    }
+                }
+                },
+                "403": {
+                "description": "Forbidden",
+                "content": {
+                    "application/json": {
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                        "error": {
+                            "type": "string"
+                        }
+                        },
+                        "example": {
+                        "error": "Invalid or expired refresh token"
+                        }
+                    }
+                    }
+                }
+                }
+            },
+            "security": [
+                {
+                "BearerAuth": []
+                }
+            ]
+            }
+        },
+
+        "/candidates": {
+            "post": {
+              "tags": ["Candidates"],
+              "summary": "Create a new candidate",
+              "description": "Create a new candidate with the provided details.",
+              "requestBody": {
+                "description": "Candidate details for creation.",
+                "required": true,
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "first_name": {
+                          "type": "string"
+                        },
+                        "last_name": {
+                          "type": "string"
+                        },
+                        "age": {
+                          "type": "integer",
+                          "format": "int32"
+                        },
+                        "department": {
+                          "type": "string"
+                        },
+                        "min_salary_expectation": {
+                          "type": "number",
+                          "format": "double"
+                        },
+                        "max_salary_expectation": {
+                          "type": "number",
+                          "format": "double"
+                        },
+                        "currency_id": {
+                          "type": "string"
+                        },
+                        "address_id": {
+                          "type": "string"
+                        }
+                      },
+                      "example": {
+                        "first_name": "John",
+                        "last_name": "Doe",
+                        "age": 30,
+                        "department": "IT",
+                        "min_salary_expectation": 50000.0,
+                        "max_salary_expectation": 70000.0,
+                        "currency_id": "30b0751c-2997-11ee-be56-0242ac120002",
+                        "address_id": "72fcdcda-2997-11ee-be56-0242ac120002"
+                      }
+                    }
+                  }
+                }
+              },
+              "responses": {
+                "200": {
+                  "description": "Candidate created successfully",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "message": {
+                            "type": "string"
+                          },
+                          "candidateId": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "example": {
+                        "message": "Candidate saved successfully",
+                        "candidateId": "CANDIDATE_ID"
+                      }
+                    }
+                  }
+                },
+                "401": {
+                  "description": "Unauthorized",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "error": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "example": {
+                        "error": "Unauthorized: Invalid or missing authentication token"
+                      }
+                    }
+                  }
+                },
+                "500": {
+                  "description": "Internal Server Error",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "error": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "example": {
+                        "error": "Internal Server Error: Some error message"
+                      }
+                    }
+                  }
+                }
+              },
+              "security": [
+                {
+                  "BearerAuth": []
+                }
+              ]
+            },
+            "get": {
+                "tags": ["Candidates"],
+                "summary": "Get all candidates",
+                "description": "Get a list of all candidates with pagination.",
+                "parameters": [
+                {
+                    "name": "page",
+                    "in": "query",
+                    "description": "Page number for pagination (default: 1).",
+                    "required": false,
+                    "schema": {
+                    "type": "integer",
+                    "format": "int32"
+                    }
+                }
+                ],
+                "responses": {
+                "200": {
+                    "description": "Candidates retrieved successfully",
+                    "content": {
+                    "application/json": {
+                        "schema": {
+                        "type": "object",
+                        "properties": {
+                            "candidates": {
+                            "type": "array",
+                            "items": {
+                                "type": "object",
+                                "properties": {
+                                "id": {
+                                    "type": "string"
+                                },
+                                "first_name": {
+                                    "type": "string"
+                                },
+                                "last_name": {
+                                    "type": "string"
+                                },
+                                "age": {
+                                    "type": "integer",
+                                    "format": "int32"
+                                },
+                                "department": {
+                                    "type": "string"
+                                },
+                                "min_salary_expectation": {
+                                    "type": "number",
+                                    "format": "double"
+                                },
+                                "max_salary_expectation": {
+                                    "type": "number",
+                                    "format": "double"
+                                },
+                                "currency_id": {
+                                    "type": "string"
+                                },
+                                "address_id": {
+                                    "type": "string"
+                                }
+                                }
+                            }
+                            }
+                        }
+                        },
+                        "example": {
+                        "candidates": [
+                            {
+                            "id": "CANDIDATE_ID_1",
+                            "first_name": "John",
+                            "last_name": "Doe",
+                            "age": 30,
+                            "department": "IT",
+                            "min_salary_expectation": 50000.0,
+                            "max_salary_expectation": 70000.0,
+                            "currency_id": "USD",
+                            "address_id": "ADDRESS_ID_1"
+                            },
+                            {
+                            "id": "CANDIDATE_ID_2",
+                            "first_name": "Jane",
+                            "last_name": "Smith",
+                            "age": 28,
+                            "department": "HR",
+                            "min_salary_expectation": 45000.0,
+                            "max_salary_expectation": 65000.0,
+                            "currency_id": "USD",
+                            "address_id": "ADDRESS_ID_2"
+                            }
+                        ]
+                        }
+                    }
+                    }
+                },
+                "401": {
+                    "description": "Unauthorized",
+                    "content": {
+                    "application/json": {
+                        "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                            "type": "string"
+                            }
+                        }
+                        },
+                        "example": {
+                        "error": "Unauthorized: Invalid or missing authentication token"
+                        }
+                    }
+                    }
+                },
+                "500": {
+                    "description": "Internal Server Error",
+                    "content": {
+                    "application/json": {
+                        "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                            "type": "string"
+                            }
+                        }
+                        },
+                        "example": {
+                        "error": "Internal Server Error: Some error message"
+                        }
+                    }
+                    }
+                }
+                },
+                "security": [
+                {
+                    "BearerAuth": []
+                }
+                ]
+            }
+
+        },
+        "/candidates/search": {
+        "post": {
+            "tags": ["Candidates"],
+            "summary": "Search candidates",
+            "description": "Search candidates by first name or last name with pagination.",
+            "requestBody": {
+            "description": "Search query and page number.",
+            "required": true,
+            "content": {
+                "application/json": {
+                "schema": {
+                    "type": "object",
+                    "properties": {
+                    "query": {
+                        "type": "string"
+                    },
+                    "page": {
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                    }
+                },
+                "example": {
+                    "query": "John",
+                    "page": 1
+                }
+                }
+            }
+            },
+            "responses": {
+            "200": {
+                "description": "Candidates retrieved successfully",
+                "content": {
+                "application/json": {
+                    "schema": {
+                    "type": "object",
+                    "properties": {
+                        "candidates": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                            "id": {
+                                "type": "string"
+                            },
+                            "first_name": {
+                                "type": "string"
+                            },
+                            "last_name": {
+                                "type": "string"
+                            },
+                            "age": {
+                                "type": "integer",
+                                "format": "int32"
+                            },
+                            "department": {
+                                "type": "string"
+                            },
+                            "min_salary_expectation": {
+                                "type": "number",
+                                "format": "double"
+                            },
+                            "max_salary_expectation": {
+                                "type": "number",
+                                "format": "double"
+                            },
+                            "currency_id": {
+                                "type": "string"
+                            },
+                            "address_id": {
+                                "type": "string"
+                            }
+                            }
+                        }
+                        }
+                    }
+                    },
+                    "example": {
+                    "candidates": [
+                        {
+                        "id": "CANDIDATE_ID_1",
+                        "first_name": "John",
+                        "last_name": "Doe",
+                        "age": 30,
+                        "department": "IT",
+                        "min_salary_expectation": 50000.0,
+                        "max_salary_expectation": 70000.0,
+                        "currency_id": "USD",
+                        "address_id": "ADDRESS_ID_1"
+                        },
+                        {
+                        "id": "CANDIDATE_ID_3",
+                        "first_name": "Johnny",
+                        "last_name": "Johnson",
+                        "age": 25,
+                        "department": "Finance",
+                        "min_salary_expectation": 55000.0,
+                        "max_salary_expectation": 75000.0,
+                        "currency_id": "USD",
+                        "address_id": "ADDRESS_ID_3"
+                        }
+                    ]
+                    }
+                }
+                }
+            },
+            "401": {
+                "description": "Unauthorized",
+                "content": {
+                "application/json": {
+                    "schema": {
+                    "type": "object",
+                    "properties": {
+                        "error": {
+                        "type": "string"
+                        }
+                    }
+                    },
+                    "example": {
+                    "error": "Unauthorized: Invalid or missing authentication token"
+                    }
+                }
+                }
+            },
+            "500": {
+                "description": "Internal Server Error",
+                "content": {
+                "application/json": {
+                    "schema": {
+                    "type": "object",
+                    "properties": {
+                        "error": {
+                        "type": "string"
+                        }
+                    }
+                    },
+                    "example": {
+                    "error": "Internal Server Error: Some error message"
+                    }
+                }
+                }
+            }
+            },
+            "security": [
+            {
+                "BearerAuth": []
+            }
+            ]
+        }
+        },
+        "/candidates/{id}": {
+            "get": {
+                "tags": ["Candidates"],
+                "summary": "Get candidate details",
+                "description": "Get details of a specific candidate by ID.",
+                "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "description": "Candidate ID.",
+                    "required": true,
+                    "schema": {
+                    "type": "string"
+                    }
+                }
+                ],
+                "responses": {
+                "200": {
+                    "description": "Candidate details retrieved successfully",
+                    "content": {
+                    "application/json": {
+                        "schema": {
+                        "type": "object",
+                        "properties": {
+                            "candidate": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                "type": "string"
+                                },
+                                "first_name": {
+                                "type": "string"
+                                },
+                                "last_name": {
+                                "type": "string"
+                                },
+                                "age": {
+                                "type": "integer",
+                                "format": "int32"
+                                },
+                                "department": {
+                                "type": "string"
+                                },
+                                "min_salary_expectation": {
+                                "type": "number",
+                                "format": "double"
+                                },
+                                "max_salary_expectation": {
+                                "type": "number",
+                                "format": "double"
+                                },
+                                "currency_id": {
+                                "type": "string"
+                                },
+                                "address_id": {
+                                "type": "string"
+                                }
+                            }
+                            }
+                        }
+                        },
+                        "example": {
+                        "candidate": {
+                            "id": "CANDIDATE_ID",
+                            "first_name": "John",
+                            "last_name": "Doe",
+                            "age": 30,
+                            "department": "IT",
+                            "min_salary_expectation": 50000.0,
+                            "max_salary_expectation": 70000.0,
+                            "currency_id": "USD",
+                            "address_id": "ADDRESS_ID"
+                        }
+                        }
+                    }
+                    }
+                },
+                "401": {
+                    "description": "Unauthorized",
+                    "content": {
+                    "application/json": {
+                        "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                            "type": "string"
+                            }
+                        }
+                        },
+                        "example": {
+                        "error": "Unauthorized: Invalid or missing authentication token"
+                        }
+                    }
+                    }
+                },
+                "404": {
+                    "description": "Not Found",
+                    "content": {
+                    "application/json": {
+                        "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                            "type": "string"
+                            }
+                        }
+                        },
+                        "example": {
+                        "error": "Candidate not found"
+                        }
+                    }
+                    }
+                },
+                "500": {
+                    "description": "Internal Server Error",
+                    "content": {
+                    "application/json": {
+                        "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                            "type": "string"
+                            }
+                        }
+                        },
+                        "example": {
+                        "error": "Internal Server Error: Some error message"
+                        }
+                    }
+                    }
+                }
+                },
+                "security": [
+                {
+                    "BearerAuth": []
+                }
+                ]
+            },
+            "post": {
+                "tags": ["Candidates"],
+                "summary": "Update candidate",
+                "description": "Update a candidate by ID.",
+                "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "description": "Candidate ID.",
+                    "required": true,
+                    "schema": {
+                    "type": "string"
+                    }
+                }
+                ],
+                "requestBody": {
+                "description": "Candidate data to be updated.",
+                "required": true,
+                "content": {
+                    "application/json": {
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                        "first_name": {
+                            "type": "string"
+                        },
+                        "last_name": {
+                            "type": "string"
+                        },
+                        "age": {
+                            "type": "integer",
+                            "format": "int32"
+                        },
+                        "department": {
+                            "type": "string"
+                        },
+                        "min_salary_expectation": {
+                            "type": "number",
+                            "format": "double"
+                        },
+                        "max_salary_expectation": {
+                            "type": "number",
+                            "format": "double"
+                        },
+                        "currency_id": {
+                            "type": "string"
+                        },
+                        "address_id": {
+                            "type": "string"
+                        }
+                        },
+                        "example": {
+                        "first_name": "John",
+                        "last_name": "Doe",
+                        "age": 30,
+                        "department": "Engineering",
+                        "min_salary_expectation": 50000.0,
+                        "max_salary_expectation": 80000.0,
+                        "currency_id": "USD",
+                        "address_id": "address_12345"
+                        }
+                    }
+                    }
+                }
+                },
+                "responses": {
+                "200": {
+                    "description": "Candidate updated successfully",
+                    "content": {
+                    "application/json": {
+                        "schema": {
+                        "type": "object",
+                        "properties": {
+                            "message": {
+                            "type": "string"
+                            }
+                        }
+                        },
+                        "example": {
+                        "message": "Candidate updated successfully"
+                        }
+                    }
+                    }
+                },
+                "401": {
+                    "description": "Unauthorized",
+                    "content": {
+                    "application/json": {
+                        "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                            "type": "string"
+                            }
+                        }
+                        },
+                        "example": {
+                        "error": "Unauthorized: Invalid or missing authentication token"
+                        }
+                    }
+                    }
+                },
+                "404": {
+                    "description": "Not Found",
+                    "content": {
+                    "application/json": {
+                        "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                            "type": "string"
+                            }
+                        }
+                        },
+                        "example": {
+                        "error": "Candidate not found"
+                        }
+                    }
+                    }
+                },
+                "500": {
+                    "description": "Internal Server Error",
+                    "content": {
+                    "application/json": {
+                        "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                            "type": "string"
+                            }
+                        }
+                        },
+                        "example": {
+                        "error": "Internal Server Error: Some error message"
+                        }
+                    }
+                    }
+                }
+                },
+                "security": [
+                {
+                    "BearerAuth": []
+                }
+                ]
+            },
+            "delete": {
+                "tags": ["Candidates"],
+                "summary": "Delete candidate",
+                "description": "Delete a candidate by ID.",
+                "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "description": "Candidate ID.",
+                    "required": true,
+                    "schema": {
+                    "type": "string"
+                    }
+                }
+                ],
+                "responses": {
+                "200": {
+                    "description": "Candidate deleted successfully",
+                    "content": {
+                    "application/json": {
+                        "schema": {
+                        "type": "object",
+                        "properties": {
+                            "message": {
+                            "type": "string"
+                            }
+                        }
+                        },
+                        "example": {
+                        "message": "Candidate deleted successfully"
+                        }
+                    }
+                    }
+                },
+                "401": {
+                    "description": "Unauthorized",
+                    "content": {
+                    "application/json": {
+                        "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                            "type": "string"
+                            }
+                        }
+                        },
+                        "example": {
+                        "error": "Unauthorized: Invalid or missing authentication token"
+                        }
+                    }
+                    }
+                },
+                "404": {
+                    "description": "Not Found",
+                    "content": {
+                    "application/json": {
+                        "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                            "type": "string"
+                            }
+                        }
+                        },
+                        "example": {
+                        "error": "Candidate not found"
+                        }
+                    }
+                    }
+                },
+                "500": {
+                    "description": "Internal Server Error",
+                    "content": {
+                    "application/json": {
+                        "schema": {
+                        "type": "object",
+                        "properties": {
+                            "error": {
+                            "type": "string"
+                            }
+                        }
+                        },
+                        "example": {
+                        "error": "Internal Server Error: Some error message"
+                        }
+                    }
+                    }
+                }
+                },
+                "security": [
+                {
+                    "BearerAuth": []
+                }
+                ]
+            }
+        }
+      
+    },
+    "components": {
+        "securitySchemes": {
+          "BearerAuth": {
+            "type": "http",
+            "scheme": "bearer",
+            "bearerFormat": "JWT"
+          }
+        }
+    }
+  }
+  

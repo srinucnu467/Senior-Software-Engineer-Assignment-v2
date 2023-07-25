@@ -1,0 +1,19 @@
+{
+  "environments": {
+    "default_migration_table": "goose_migrations",
+    "default_database": "development",
+    "development": {
+      "adapter": "mysql",
+      "host": "localhost",
+      "user": "root",
+      "pass": "123@Apple",
+      "port": 3306,
+      "charset": "utf8",
+      "database": "users"
+    }
+  },
+  "paths": {
+    "migrations": "database-migrations/migrations",
+    "seeds": "database-migrations/seeds"
+  }
+}
